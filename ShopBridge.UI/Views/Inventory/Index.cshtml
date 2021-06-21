@@ -1,0 +1,92 @@
+﻿@model ShopBridge.Domain.ViewModel.SearchInventoryViewModel
+@{
+}
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Inventory List</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordred datatable table-hover display" id="inventory-table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Sr. No.
+                            </th>
+                            <th>Inventory Name</th>
+                            <th>Inventory Description</th>
+                            <th>Inventory Price</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.GetInventories != null)
+                            {
+                                int count = 1;
+                                foreach (var inventory in Model.GetInventories)
+                                {
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@inventory.InventoryName</td>
+                                        <td>@inventory.InventoryDescription</td>
+                                        <td>@inventory.InventoryPrice</td>
+                                        <td>@inventory.AvailableStatus</td>
+                                        <td>
+                                            <input type="hidden" id="hdnInvId_@count" value="@inventory.InventoryId" />
+                                            <span class="btn btn-xs text-success" title="Edit" id="btnEdit_@count"><span class="far fa-edit"></span></span>
+                                        </td>
+                                        <td>
+                                            <span class="btn btn-xs text-danger" title="Delete" id="btnDel_@count"><span class="far fa-trash-alt"></span></span>
+                                        </td>
+                                    </tr>
+                                    count = count + 1;
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7">No record found</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>                    
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/pagejs/comman.js"></script>
+<script src="~/js/sweetalert2.min.js"></script>
+<script src="~/pagejs/inventory.js"></script>
+<script src="~/js/jquery.dataTables.min.js"></script>
+<script src="~/js/dataTables.bootstrap5.min.js"></script>
+
+<style type="text/css">
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+</style>
+
+<script type="text/javascript">
+    $('.datatable').DataTable({        
+        "scrollCollapse": true,
+        "paging": true,
+        aLengthMenu: [
+            [10, 25, 50, 100, 200, -1],
+            [10, 25, 50, 100, 200, "All"]
+        ],
+
+        iDisplayLength: 25
+    });    
+</script>

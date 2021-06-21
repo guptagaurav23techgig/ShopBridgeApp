@@ -1,0 +1,52 @@
+﻿@model List<ShopBridge.Domain.ViewModel.InventoryViewModel>
+@{
+    Layout = null;
+}
+
+<table class="table table-bordred datatable table-hover">
+    <thead>
+        <tr>
+            <th>
+                Sr. No.
+            </th>
+            <th>Inventory Name</th>
+            <th>Inventory Description</th>
+            <th>Inventory Price</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null)
+            {
+                int count = 1;
+                foreach (var inventory in Model)
+                {
+                    <tr>
+                        <td>@count</td>
+                        <td>@inventory.InventoryName</td>
+                        <td>@inventory.InventoryDescription</td>
+                        <td>@inventory.InventoryPrice</td>
+                        <td>@inventory.AvailableStatus</td>
+                        <td>
+                            <input type="hidden" id="hdnInvId_@count" value="@inventory.InventoryId" />
+                            <span class="btn btn-xs text-success" title="Edit" id="btnEdit_@count"><span class="far fa-edit"></span></span>
+                        </td>
+                        <td>
+                            <span class="btn btn-xs text-danger" title="Delete" id="btnDel_@count"><span class="far fa-trash-alt"></span></span>
+                        </td>
+                    </tr>
+                    count = count + 1;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7">No record found</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

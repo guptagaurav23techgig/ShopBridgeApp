@@ -1,0 +1,95 @@
+﻿@model ShopBridge.Domain.ViewModel.InventoryViewModel
+@{
+
+}
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Add Inventory</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Inventory Name</label>
+                        <input type="text" class="form-control" value="@Model.InventoryName" id="inventoryName" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Inventory Description</label>
+                        <input type="text" class="form-control" value="@Model.InventoryDescription" id="inventoryDesc" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Inventory Price</label>
+                        <input type="text" class="form-control numericOnly" value="@Model.InventoryPrice" id="inventoryPrice" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Inventory Availibility : </label>
+                        <input type="radio" value="1" name="inventoryAvail" id="invYes" /> <label for="invYes">Yes</label>
+                        <input type="radio" value="0" name="inventoryAvail" id="invNo" /> <label for="invNo">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @if (Model.InventoryId > 0)
+                        {
+                            if (ViewBag.isAllow == true)
+                            {
+                                <input type="button" class="btn btn-success btn-block" value="Update" name="btnUpdate" onclick="updateInventory();" />
+                            }
+                            else
+                            {
+                                <span class="text-center alert-info">Wrong details found</span>
+                            }
+                        }
+                        else
+                        {
+                            <input type="button" class="btn btn-success btn-block" value="Add" name="btnAdd" onclick="addInventory();" />
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="reset" class="btn btn-danger btn-block" value="Reset" />
+                        <input type="hidden" id="hdnInvId" value="@Model.InventoryId" />
+                        <input type="hidden" id="hdnAvail" value="@Model.isAvailable" />
+                        <span id="spnChk" style="display:none;">
+                            @Model.isAvailable
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/sweetalert2.min.js"></script>
+<script src="~/pagejs/comman.js"></script>
+<script src="~/pagejs/inventory.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var isaval = $("#hdnAvail").val();
+        //alert(isaval);
+        $("input[name=inventoryAvail][value='" + isaval + "']").prop("checked", true);
+    });
+</script>
